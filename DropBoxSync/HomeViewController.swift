@@ -59,7 +59,7 @@ class HomeViewController: UIViewController {
 			firstly {
 				DropboxHandler.uploadFile(json: self.dummyData, path: filePath)
 				}.then {
-					self.showAlertWithTitle("Successfully uploaded files!")
+					self.showAlertWithTitle("Successfully uploaded file!")
 				}.always {
 					self.spinner.stopAnimating()
 				}.catch { thrownError in
@@ -71,7 +71,7 @@ class HomeViewController: UIViewController {
 				}.then {
 					DropboxHandler.uploadFile(json: self.dummyData, path: self.filePath)
 				}.then {
-					self.showAlertWithTitle("Successfully uploaded files!")
+					self.showAlertWithTitle("Successfully uploaded file!")
 				}.always {
 					self.spinner.stopAnimating()
 				}.catch { thrownError in
@@ -88,7 +88,8 @@ class HomeViewController: UIViewController {
 			firstly {
 				DropboxHandler.downloadFileAtPath(path: filePath)
 				}.then { fileContents in
-					self.showAlertWithTitle("Successfully retrieved files.")
+					//Parse contents here
+					self.showAlertWithTitle("Successfully retrieved file.")
 				}.always {
 					self.spinner.stopAnimating()
 				}.catch { thrownError in
@@ -100,7 +101,8 @@ class HomeViewController: UIViewController {
 				}.then {
 					DropboxHandler.downloadFileAtPath(path: self.filePath)
 				}.then { fileContents in
-					self.showAlertWithTitle("Succesfully retrieved files.")
+					//Parse contents here
+					self.showAlertWithTitle("Succesfully retrieved file.")
 				}.always {
 					self.spinner.stopAnimating()
 				}.catch { thrownError in
