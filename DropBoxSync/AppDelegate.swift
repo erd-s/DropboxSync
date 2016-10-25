@@ -24,10 +24,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
 		receiveDropboxAuthResult(url).then {
 				print("auth success")
-			}.always {
-				print("received dropbox auth result")
+			}.catch { _ in
+				print("error authorizing dropbox.")
 		}
-		
+	
 		return true
 	}
 	

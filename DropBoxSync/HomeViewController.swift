@@ -25,6 +25,8 @@ class HomeViewController: UIViewController {
 	@IBAction func authDropboxButtonTapped(_ sender: AnyObject) {
 		DropboxHandler.authorizeDropbox(viewController: self).then { _ -> Void in
 			
+			}.catch { _ in
+				print("error occured during process of authorizing dropbox.")
 		}
 	}
 	
@@ -35,7 +37,9 @@ class HomeViewController: UIViewController {
 			DropboxHandler.authorizeDropbox(viewController: self).then { _ -> Void in
 				DropboxHandler.syncFiles()
 				return
-				}
+			}.catch { _ in
+			print("error occured during process of authorizing dropbox.")
+			}
 		}
 	}
  }
