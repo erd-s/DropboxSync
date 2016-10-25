@@ -27,7 +27,7 @@ class DropboxHandler {
 			DropboxClientsManager.authorizeFromController(UIApplication.shared, controller: viewController, openURL: {(url: URL) -> Void in UIApplication.shared.open(url, options: [:], completionHandler: { (true) in
 				fulfill()
 			})
-				})
+			})
 		}
 	}
 	
@@ -48,26 +48,23 @@ class DropboxHandler {
 	/**
 	Uploads files to dropbox at a specified path.
 	
-	
+	- parameter json: Type `Any`. The object to be serialized into a JSON object.
+	- parameter path: Path to write the data to.
+	- returns: Promise. Fulfills when data has been uploaded w/o any errors. Catches any errors along the way.
 	*/
 	static func uploadFiles(json: Any, path: String) -> Promise<Void> {
 		return Promise { (fulfill, reject) in
 			if let client = DropboxClientsManager.authorizedClient {
 				if let dataInput = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted) {
-					let req = client.files.upload(path: path, input: dataInput)
-					req.response(completionHandler: { (response, error) in
+					client.files.upload(path: path, input: dataInput)
+						.response { (response, error) in
 						if error == nil {
 							fulfill()
 						} else {
 							let errorToReturn = NSError(domain: "DropboxError", code: 666, userInfo: [NSLocalizedDescriptionKey: error!.description])
 							reject(errorToReturn)
 						}
-					})
-					
-					req.progress({ (progress) in
-						//handle progress (spinner)
-					})
-					
+					}
 				} else {
 					//not valid json object
 					let invalidJsonObjectErr = NSError(domain: "JSONError", code: 666, userInfo: [NSLocalizedDescriptionKey: "Invalid JSON object."])
@@ -76,4 +73,47 @@ class DropboxHandler {
 			}
 		}
 	}
+	
+	
+	/**
+	Downloads files to dropbox at a specified path. If there is a value for the
+	last upload time in userdefaults, it will pull the file directly. Otherwise,
+	it must pull the entire folder and choose the most recent result.
+	
+	- returns: Promise that fulfills with filecontents and rejects with download error.
+	*/
+	static func downloadFileAtPath(path: String) -> Promise<Data> {
+		return Promise { fulfill, reject in
+			if let client = DropboxClientsManager.authorizedClient {
+				
+				client.files.download(path: path)
+					.response { response, error in
+						if let response = response {
+							let responseMetadata = response.0
+							print(responseMetadata)
+							let fileContents = response.1
+							fulfill(fileContents)
+							print(fileContents)
+						} else if let error = error {
+							let downloadError = NSError(domain: "DropboxError", code: 666, userInfo: [NSLocalizedDescriptionKey: error.description])
+							reject(downloadError)
+						}
+				}
+			} else {
+				//not logged in
+			}
+		}
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+

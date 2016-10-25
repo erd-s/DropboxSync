@@ -19,19 +19,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dHt-4U-gLA">
-                                <color key="backgroundColor" red="0.083868049085140228" green="0.7500799298286438" blue="0.47459673881530762" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="laD-AG-qH0"/>
-                                </constraints>
-                                <state key="normal" title="authorize Dropbox to sync files">
-                                    <color key="titleColor" red="0.99989503622055054" green="1" blue="0.99987143278121948" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="authDropboxButtonTapped:" destination="aIp-bz-wD8" eventType="touchUpInside" id="s1I-eZ-HFa"/>
-                                    <action selector="syncFilesButtonTapped:" destination="aIp-bz-wD8" eventType="touchUpInside" id="tQF-bE-HSC"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9aT-MH-2aG">
                                 <color key="backgroundColor" red="0.1473660171" green="0.58031141760000005" blue="0.93701070549999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -53,22 +40,31 @@
                                     <action selector="retrieveFilesButtonTapped:" destination="aIp-bz-wD8" eventType="touchUpInside" id="A7v-Hy-6MW"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Ruz-F7-Pld">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="37" id="TCU-Sq-5eO"/>
+                                    <constraint firstAttribute="height" constant="37" id="fwY-Cr-rSO"/>
+                                </constraints>
+                                <color key="color" red="0.95069688558578491" green="0.082351215183734894" blue="0.95212250947952271" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="9aT-MH-2aG" firstAttribute="centerX" secondItem="H6o-S1-9Yw" secondAttribute="centerX" id="5Eb-6Z-LJb"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="dHt-4U-gLA" secondAttribute="trailing" id="AKg-Aa-s91"/>
                             <constraint firstItem="SLh-LO-iru" firstAttribute="height" secondItem="9aT-MH-2aG" secondAttribute="height" id="Cx6-3h-icD"/>
-                            <constraint firstItem="9aT-MH-2aG" firstAttribute="width" secondItem="dHt-4U-gLA" secondAttribute="width" id="Z7D-9p-XNa"/>
-                            <constraint firstItem="dHt-4U-gLA" firstAttribute="centerY" secondItem="H6o-S1-9Yw" secondAttribute="centerY" id="fyH-Re-ToU"/>
-                            <constraint firstItem="dHt-4U-gLA" firstAttribute="leading" secondItem="H6o-S1-9Yw" secondAttribute="leadingMargin" id="hDI-v2-JVM"/>
+                            <constraint firstItem="Ruz-F7-Pld" firstAttribute="centerX" secondItem="H6o-S1-9Yw" secondAttribute="centerX" id="EWR-6P-QBe"/>
+                            <constraint firstItem="9aT-MH-2aG" firstAttribute="trailing" secondItem="H6o-S1-9Yw" secondAttribute="trailingMargin" id="agg-sX-6jl"/>
+                            <constraint firstItem="9aT-MH-2aG" firstAttribute="leading" secondItem="H6o-S1-9Yw" secondAttribute="leadingMargin" id="hb4-Pc-Ywc"/>
                             <constraint firstItem="SLh-LO-iru" firstAttribute="top" secondItem="9aT-MH-2aG" secondAttribute="bottom" constant="20" id="mAK-wP-Fl3"/>
-                            <constraint firstItem="9aT-MH-2aG" firstAttribute="height" secondItem="dHt-4U-gLA" secondAttribute="height" id="pWH-eW-oCN"/>
+                            <constraint firstItem="9aT-MH-2aG" firstAttribute="centerY" secondItem="H6o-S1-9Yw" secondAttribute="centerY" id="oMw-95-voM"/>
                             <constraint firstItem="SLh-LO-iru" firstAttribute="centerX" secondItem="H6o-S1-9Yw" secondAttribute="centerX" id="tiy-gc-9g0"/>
                             <constraint firstItem="SLh-LO-iru" firstAttribute="width" secondItem="9aT-MH-2aG" secondAttribute="width" id="vJQ-k1-nJU"/>
-                            <constraint firstItem="9aT-MH-2aG" firstAttribute="top" secondItem="dHt-4U-gLA" secondAttribute="bottom" constant="20" id="xQ5-yW-aTG"/>
+                            <constraint firstItem="9aT-MH-2aG" firstAttribute="top" secondItem="Ruz-F7-Pld" secondAttribute="bottom" constant="30" id="viK-6E-jUm"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="spinner" destination="Ruz-F7-Pld" id="q0F-Ox-hF7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kva-iq-FPU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
