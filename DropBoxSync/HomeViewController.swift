@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyDropbox
+import PromiseKit
 
 class HomeViewController: UIViewController {
 	//--------------------------------------
@@ -55,22 +56,26 @@ class HomeViewController: UIViewController {
 	@IBAction func uploadFilesButtonTapped(_ sender: UIButton) {
 		spinner.startAnimating()
 		if DropboxHandler.canSyncFiles() {
-			DropboxHandler.uploadFiles(json: self.dummyData, path: filePath).then {
-				self.showAlertWithTitle("Successfully uploaded files!")
+			firstly {
+				DropboxHandler.uploadFile(json: self.dummyData, path: filePath)
+				}.then {
+					self.showAlertWithTitle("Successfully uploaded files!")
+				}.always {
+					self.spinner.stopAnimating()
 				}.catch { thrownError in
 					self.showAlertWithTitle(thrownError.localizedDescription)
-				}.always {
-					self.spinner.stopAnimating()
-				}
+			}
 		} else {
-			DropboxHandler.authorizeDropbox(viewController: self).then {
-				DropboxHandler.uploadFiles(json: self.dummyData, path: self.filePath).then {
+			firstly {
+				DropboxHandler.authorizeDropbox(viewController: self)
+				}.then {
+					DropboxHandler.uploadFile(json: self.dummyData, path: self.filePath)
+				}.then {
 					self.showAlertWithTitle("Successfully uploaded files!")
-					}.catch { thrownError in
-						self.showAlertWithTitle(thrownError.localizedDescription)
-				}
 				}.always {
 					self.spinner.stopAnimating()
+				}.catch { thrownError in
+					self.showAlertWithTitle(thrownError.localizedDescription)
 			}
 		}
 	}
@@ -80,22 +85,26 @@ class HomeViewController: UIViewController {
 	@IBAction func retrieveFilesButtonTapped(_ sender: UIButton) {
 		spinner.startAnimating()
 		if DropboxHandler.canSyncFiles() {
-			DropboxHandler.downloadFileAtPath(path: filePath).then { fileContents in
-				self.showAlertWithTitle("Successfully retrieved files.")
+			firstly {
+				DropboxHandler.downloadFileAtPath(path: filePath)
+				}.then { fileContents in
+					self.showAlertWithTitle("Successfully retrieved files.")
+				}.always {
+					self.spinner.stopAnimating()
 				}.catch { thrownError in
 					self.showAlertWithTitle(thrownError.localizedDescription)
-				}.always {
-					self.spinner.stopAnimating()
 			}
 		} else {
-			DropboxHandler.authorizeDropbox(viewController: self).then {
-				DropboxHandler.downloadFileAtPath(path: self.filePath).then { fileContents in
+			firstly {
+				DropboxHandler.authorizeDropbox(viewController: self)
+				}.then {
+					DropboxHandler.downloadFileAtPath(path: self.filePath)
+				}.then { fileContents in
 					self.showAlertWithTitle("Succesfully retrieved files.")
-					}.catch { thrownError in
-						self.showAlertWithTitle(thrownError.localizedDescription)
-				}
 				}.always {
 					self.spinner.stopAnimating()
+				}.catch { thrownError in
+					self.showAlertWithTitle(thrownError.localizedDescription)
 			}
 		}
 	}

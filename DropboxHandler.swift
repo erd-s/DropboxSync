@@ -52,7 +52,7 @@ class DropboxHandler {
 	- parameter path: Path to write the data to.
 	- returns: Promise. Fulfills when data has been uploaded w/o any errors. Catches any errors along the way.
 	*/
-	static func uploadFiles(json: Any, path: String) -> Promise<Void> {
+	static func uploadFile(json: Any, path: String) -> Promise<Void> {
 		return Promise { (fulfill, reject) in
 			if let client = DropboxClientsManager.authorizedClient {
 				if let dataInput = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted) {
