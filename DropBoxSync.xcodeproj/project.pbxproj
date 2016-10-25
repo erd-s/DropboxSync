@@ -13,6 +13,7 @@
 		9BB5B42B1DBEC6C70073A955 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB5B42A1DBEC6C70073A955 /* HomeViewController.swift */; };
 		9BB5B42D1DBEC6D70073A955 /* DropboxHome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BB5B42C1DBEC6D70073A955 /* DropboxHome.storyboard */; };
 		9BBF84D91DBED0B8004D80A7 /* DropboxHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BBF84D81DBED0B8004D80A7 /* DropboxHandler.swift */; };
+		9BE726731DBFCE9300451CF4 /* superheroes.json in Resources */ = {isa = PBXBuildFile; fileRef = 9BE726721DBFCE9300451CF4 /* superheroes.json */; };
 		9F299BA5F18FB816C3AFB521 /* Pods_DropBoxSync.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 098E5B4D7FAEFDB07A06337E /* Pods_DropBoxSync.framework */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +29,7 @@
 		9BB5B42C1DBEC6D70073A955 /* DropboxHome.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DropboxHome.storyboard; sourceTree = "<group>"; };
 		9BBF84D71DBED087004D80A7 /* DropBoxSync.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DropBoxSync.entitlements; sourceTree = "<group>"; };
 		9BBF84D81DBED0B8004D80A7 /* DropboxHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DropboxHandler.swift; path = ../DropboxHandler.swift; sourceTree = "<group>"; };
+		9BE726721DBFCE9300451CF4 /* superheroes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = superheroes.json; sourceTree = "<group>"; };
 		C27635F0F72E8EDA39F98D19 /* Pods-DropBoxSync.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DropBoxSync.release.xcconfig"; path = "Pods/Target Support Files/Pods-DropBoxSync/Pods-DropBoxSync.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -84,6 +86,7 @@
 		9BBF84DA1DBED19E004D80A7 /* Other Files */ = {
 			isa = PBXGroup;
 			children = (
+				9BE726721DBFCE9300451CF4 /* superheroes.json */,
 				9BB5B41F1DBEC6600073A955 /* Assets.xcassets */,
 				9BB5B4241DBEC6600073A955 /* Info.plist */,
 				9BB5B4211DBEC6600073A955 /* LaunchScreen.storyboard */,
@@ -186,6 +189,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9BB5B42D1DBEC6D70073A955 /* DropboxHome.storyboard in Resources */,
+				9BE726731DBFCE9300451CF4 /* superheroes.json in Resources */,
 				9BB5B4231DBEC6600073A955 /* LaunchScreen.storyboard in Resources */,
 				9BB5B4201DBEC6600073A955 /* Assets.xcassets in Resources */,
 			);

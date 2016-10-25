@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var window: UIWindow?
 	
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+		
 		DropboxClientsManager.setupWithAppKey("6n9m6c17lt0amwy")
 		
 		return true
@@ -35,8 +36,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	/**
 	Wraps the auth result in a Promise.
 	
+	- parameter url: url param from AppDel function openUrl
+	- returns: A Promise with success or failure results.
 	*/
-	func receiveDropboxAuthResult(_ url: URL) -> Promise<Void> {
+	fileprivate func receiveDropboxAuthResult(_ url: URL) -> Promise<Void> {
 		return Promise { (fulfill, reject) in
 			if let authResult = DropboxClientsManager.handleRedirectURL(url) {
 				switch authResult {

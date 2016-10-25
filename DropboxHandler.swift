@@ -17,24 +17,46 @@ class DropboxHandler {
 	
 	static func authorizeDropbox(viewController: UIViewController) -> Promise<Void> {
 		return Promise { (fulfill, reject) in
-			DropboxClientsManager.authorizeFromController(UIApplication.shared, controller: viewController, openURL:  { (URL) in
+			DropboxClientsManager.authorizeFromController(UIApplication.shared, controller: viewController, openURL: {(url: URL) -> Void in UIApplication.shared.open(url, options: [:], completionHandler: { (true) in
 				fulfill()
 			})
+				})
 		}
 	}
 	
 	static func canSyncFiles() -> Bool {
 		if let client = DropboxClientsManager.authorizedClient {
-				print(client)
+			print("client: \(client)")
 			return true
 		} else {
 			return false
 		}
 	}
 	
-	static func syncFiles() {
-		if let client = DropboxClientsManager.authorizedClient {
-			print(client)
+	static func uploadFiles(jsonFiles: [NSDictionary], path: String) -> Promise<Void> {
+		return Promise { (fulfill, reject) in
+			if let client = DropboxClientsManager.authorizedClient {
+				if let dataInput = try? JSONSerialization.data(withJSONObject: jsonFiles, options: .prettyPrinted) {
+					let req = client.files.upload(path: path, input: dataInput)
+					req.response(completionHandler: { (response, error) in
+						if error == nil {
+							fulfill()
+						} else {
+							let errorToReturn = NSError(domain: "DropboxError", code: 666, userInfo: [NSLocalizedDescriptionKey: error!.description])
+							reject(errorToReturn)
+						}
+					})
+					
+					req.progress({ (progress) in
+						//handle progress (spinner)
+					})
+					
+				} else {
+					//not valid json object
+					let invalidJsonObjectErr = NSError(domain: "JSONError", code: 666, userInfo: [NSLocalizedDescriptionKey: "Invalid JSON object."])
+					reject(invalidJsonObjectErr)
+				}
+			}
 		}
 	}
 }
