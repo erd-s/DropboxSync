@@ -24,7 +24,7 @@ class HomeViewController: UIViewController {
 	
 	
 	//--------------------------------------
-	// MARK: - View
+	// MARK: - View/Setup
 	//--------------------------------------
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -61,7 +61,7 @@ class HomeViewController: UIViewController {
 					self.showAlertWithTitle(thrownError.localizedDescription)
 				}.always {
 					self.spinner.stopAnimating()
-			}
+				}
 		} else {
 			DropboxHandler.authorizeDropbox(viewController: self).then {
 				DropboxHandler.uploadFiles(json: self.dummyData, path: self.filePath).then {
@@ -74,6 +74,8 @@ class HomeViewController: UIViewController {
 			}
 		}
 	}
+	
+	
 	
 	@IBAction func retrieveFilesButtonTapped(_ sender: UIButton) {
 		spinner.startAnimating()
