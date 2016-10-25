@@ -13,7 +13,7 @@ class HomeViewController: UIViewController {
 	//--------------------------------------
 	// MARK: - Properties
 	//--------------------------------------
-	var dummyDataArray = [NSDictionary]()
+	var dummyData = [NSDictionary]()
 	
 	//--------------------------------------
 	// MARK: - View
@@ -21,7 +21,7 @@ class HomeViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		dummyDataArray = [
+		dummyData = [
 			["name": "Namor",
 			 "description": "Half-human and half-atlantean, Namor the sub-mariner was one of the earliest superheroes in the Marvel universe. The stereotypical antihero, his short fuse and long list of superpowers would make him a formidable foe.",
 			 "avatar_url": "https://s3.amazonaws.com/superheropediaimages/namor.png",
@@ -54,22 +54,24 @@ class HomeViewController: UIViewController {
 		}
 	}
 	
-	
-	@IBAction func syncFilesButtonTapped(_ sender: UIButton) {
+	@IBAction func uploadFilesButtonTapped(_ sender: UIButton) {
 		if DropboxHandler.canSyncFiles() {
-			DropboxHandler.uploadFiles(jsonFiles: self.dummyDataArray, path: "/\(NSDate())").then {
+			DropboxHandler.uploadFiles(json: self.dummyData, path: "/\(NSDate())").then {
 				self.showAlertWithTitle("Successfully uploaded files!")
 				}.catch { thrownError in
 					self.showAlertWithTitle(thrownError.localizedDescription)
 			}
 		} else {
 			DropboxHandler.authorizeDropbox(viewController: self).then {
-				DropboxHandler.uploadFiles(jsonFiles: self.dummyDataArray, path: "/\(NSDate())")
+				DropboxHandler.uploadFiles(json: self.dummyData, path: "/\(NSDate())")
 				}.then {
 					self.showAlertWithTitle("Successfully uploaded files!")
 				}.catch { thrownError in
 					self.showAlertWithTitle(thrownError.localizedDescription)
 			}
 		}
+	}
+	
+	@IBAction func retrieveFilesButtonTapped(_ sender: UIButton) {
 	}
 }

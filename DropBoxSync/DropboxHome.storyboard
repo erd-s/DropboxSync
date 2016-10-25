@@ -37,11 +37,20 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="GcM-ru-TbX"/>
                                 </constraints>
-                                <state key="normal" title="sync files">
+                                <state key="normal" title="upload dummy files">
                                     <color key="titleColor" red="0.99989503619999998" green="1" blue="0.99987143280000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="syncFilesButtonTapped:" destination="aIp-bz-wD8" eventType="touchUpInside" id="LRi-kC-sLm"/>
+                                    <action selector="uploadFilesButtonTapped:" destination="aIp-bz-wD8" eventType="touchUpInside" id="ddz-Bz-Eto"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SLh-LO-iru">
+                                <color key="backgroundColor" red="0.91553431749343872" green="0.30403193831443787" blue="0.33617019653320312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="retrieve most recent file">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="retrieveFilesButtonTapped:" destination="aIp-bz-wD8" eventType="touchUpInside" id="A7v-Hy-6MW"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -49,10 +58,14 @@
                         <constraints>
                             <constraint firstItem="9aT-MH-2aG" firstAttribute="centerX" secondItem="H6o-S1-9Yw" secondAttribute="centerX" id="5Eb-6Z-LJb"/>
                             <constraint firstAttribute="trailingMargin" secondItem="dHt-4U-gLA" secondAttribute="trailing" id="AKg-Aa-s91"/>
+                            <constraint firstItem="SLh-LO-iru" firstAttribute="height" secondItem="9aT-MH-2aG" secondAttribute="height" id="Cx6-3h-icD"/>
                             <constraint firstItem="9aT-MH-2aG" firstAttribute="width" secondItem="dHt-4U-gLA" secondAttribute="width" id="Z7D-9p-XNa"/>
                             <constraint firstItem="dHt-4U-gLA" firstAttribute="centerY" secondItem="H6o-S1-9Yw" secondAttribute="centerY" id="fyH-Re-ToU"/>
                             <constraint firstItem="dHt-4U-gLA" firstAttribute="leading" secondItem="H6o-S1-9Yw" secondAttribute="leadingMargin" id="hDI-v2-JVM"/>
+                            <constraint firstItem="SLh-LO-iru" firstAttribute="top" secondItem="9aT-MH-2aG" secondAttribute="bottom" constant="20" id="mAK-wP-Fl3"/>
                             <constraint firstItem="9aT-MH-2aG" firstAttribute="height" secondItem="dHt-4U-gLA" secondAttribute="height" id="pWH-eW-oCN"/>
+                            <constraint firstItem="SLh-LO-iru" firstAttribute="centerX" secondItem="H6o-S1-9Yw" secondAttribute="centerX" id="tiy-gc-9g0"/>
+                            <constraint firstItem="SLh-LO-iru" firstAttribute="width" secondItem="9aT-MH-2aG" secondAttribute="width" id="vJQ-k1-nJU"/>
                             <constraint firstItem="9aT-MH-2aG" firstAttribute="top" secondItem="dHt-4U-gLA" secondAttribute="bottom" constant="20" id="xQ5-yW-aTG"/>
                         </constraints>
                     </view>
