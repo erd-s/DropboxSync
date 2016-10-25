@@ -94,8 +94,15 @@ class DropboxHandler {
 							let fileContents = response.1
 							fulfill(fileContents)
 							print(fileContents)
-						} else if let error = error {
-							let downloadError = NSError(domain: "DropboxError", code: 666, userInfo: [NSLocalizedDescriptionKey: error.description])
+						} else if let err = error {
+							var downloadError: NSError!
+							if err.description.contains("not_found") {
+								downloadError = NSError(domain: "DropboxError", code: 666, userInfo: [NSLocalizedDescriptionKey: "File not found."])
+
+							} else {
+								downloadError = NSError(domain: "DropboxError", code: 666, userInfo: [NSLocalizedDescriptionKey: err.description])
+							}
+							
 							reject(downloadError)
 						}
 				}

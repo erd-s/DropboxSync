@@ -59,17 +59,17 @@ class HomeViewController: UIViewController {
 				self.showAlertWithTitle("Successfully uploaded files!")
 				}.catch { thrownError in
 					self.showAlertWithTitle(thrownError.localizedDescription)
-				}.always { _ -> Void in
+				}.always {
 					self.spinner.stopAnimating()
-				}
+			}
 		} else {
-			DropboxHandler.authorizeDropbox(viewController: self).then { _ in
+			DropboxHandler.authorizeDropbox(viewController: self).then {
 				DropboxHandler.uploadFiles(json: self.dummyData, path: self.filePath).then {
 					self.showAlertWithTitle("Successfully uploaded files!")
 					}.catch { thrownError in
 						self.showAlertWithTitle(thrownError.localizedDescription)
 				}
-				}.always { _ -> Void in
+				}.always {
 					self.spinner.stopAnimating()
 			}
 		}
@@ -82,19 +82,23 @@ class HomeViewController: UIViewController {
 				self.showAlertWithTitle("Successfully retrieved files.")
 				}.catch { thrownError in
 					self.showAlertWithTitle(thrownError.localizedDescription)
-				}.always { _ -> Void in
+				}.always {
 					self.spinner.stopAnimating()
-				}
+			}
 		} else {
-			DropboxHandler.authorizeDropbox(viewController: self).then { _ -> Void in
+			DropboxHandler.authorizeDropbox(viewController: self).then {
 				DropboxHandler.downloadFileAtPath(path: self.filePath).then { fileContents in
 					self.showAlertWithTitle("Succesfully retrieved files.")
 					}.catch { thrownError in
 						self.showAlertWithTitle(thrownError.localizedDescription)
-					}.always { _ -> Void in
-						self.spinner.stopAnimating()
 				}
+				}.always {
+					self.spinner.stopAnimating()
 			}
 		}
 	}
 }
+
+
+
+
