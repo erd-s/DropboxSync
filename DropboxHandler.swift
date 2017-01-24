@@ -10,11 +10,9 @@ import UIKit
 import SwiftyDropbox
 import PromiseKit
 
-
 class DropboxHandler {
 	fileprivate var appSecret = "g5nbjexv7p1mgci"
 	fileprivate var appKey = "6n9m6c17lt0amwy"
-	
 	
 	/**
 	Presents authorization flow for user to authorize dropbox.
@@ -58,18 +56,40 @@ class DropboxHandler {
 				if let dataInput = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted) {
 					client.files.upload(path: path, input: dataInput)
 						.response { (response, error) in
-						if error == nil {
-							fulfill()
-						} else {
-							let errorToReturn = NSError(domain: "DropboxError", code: 666, userInfo: [NSLocalizedDescriptionKey: error!.description])
-							reject(errorToReturn)
-						}
+							if error == nil {
+								fulfill()
+							} else {
+								let errorToReturn = NSError(domain: "DropboxError", code: 666, userInfo: [NSLocalizedDescriptionKey: error!.description])
+								reject(errorToReturn)
+							}
 					}
 				} else {
 					//not valid json object
 					let invalidJsonObjectErr = NSError(domain: "JSONError", code: 666, userInfo: [NSLocalizedDescriptionKey: "Invalid JSON object."])
 					reject(invalidJsonObjectErr)
 				}
+			}
+		}
+	}
+	
+	/**
+	Deletes file at a given path.
+	
+	- parameter path: The path to delete the object at. **Begin with a / char**
+	- returns: Promise. Fulfills when object is deleted, rejects if error.
+	*/
+	static func deleteFileAt(path: String) -> Promise<Void> {
+		return Promise { (fulfill, reject) in
+			if let client  = DropboxClientsManager.authorizedClient {
+				client.files.delete(path: path)
+					.response(completionHandler: { (response, error) in
+						if error == nil {
+							fulfill()
+						} else {
+							let errorToReturn = NSError(domain: "DropboxError", code: 666, userInfo: [NSLocalizedDescriptionKey: error!.description])
+							reject(errorToReturn)
+						}
+					})
 			}
 		}
 	}
@@ -98,7 +118,7 @@ class DropboxHandler {
 							var downloadError: NSError!
 							if err.description.contains("not_found") {
 								downloadError = NSError(domain: "DropboxError", code: 666, userInfo: [NSLocalizedDescriptionKey: "File not found."])
-
+								
 							} else {
 								downloadError = NSError(domain: "DropboxError", code: 666, userInfo: [NSLocalizedDescriptionKey: err.description])
 							}
@@ -112,10 +132,6 @@ class DropboxHandler {
 		}
 	}
 }
-
-
-
-
 
 
 
